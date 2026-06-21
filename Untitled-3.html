@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    /*  ظهور البطاقات:
+    السطر 53: animation: fadeInUp 0.6s ease forwards – الحركة مع بقاء الحالة النهائية
+    السطر 54-55: opacity: 0; transform: translateY(30px) – الحالة الابتدائية
+    السطر 60-65: animation-delay – تأخير متزايد لكل بطاقة (0s, 0.1s, 0.2s...)
+    السطر 67-71: @keyframes fadeInUp – الانتقال إلى الحالة النهائية فقط
+    
+     */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مثال 3: بطاقات منتج - ظهور متحرك</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1e293b;
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .product-card {
+            width: 280px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            /* ⭐ Animation ظهور متأخرة لكل بطاقة */
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0; /* شفافة في البداية */
+            transform: translateY(30px); /* منزاحة للأسفل */
+        }
+
+        /* تأخير مختلف لكل بطاقة */
+        .product-card:nth-child(1) { animation-delay: 0s; }
+        .product-card:nth-child(2) { animation-delay: 0.1s; }
+        .product-card:nth-child(3) { animation-delay: 0.2s; }
+        .product-card:nth-child(4) { animation-delay: 0.3s; }
+        .product-card:nth-child(5) { animation-delay: 0.4s; }
+        .product-card:nth-child(6) { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1; /* مرئي بالكامل */
+                transform: translateY(0); /* مكانه الطبيعي */
+            }
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            transition: transform 0.3s ease;
+        }
+
+        .product-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            color: #667eea;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* صور تجريبية */
+        .img1 { background-image: url('https://picsum.photos/300/200?random=1'); }
+        .img2 { background-image: url('https://picsum.photos/300/200?random=2'); }
+        .img3 { background-image: url('https://picsum.photos/300/200?random=3'); }
+        .img4 { background-image: url('https://picsum.photos/300/200?random=4'); }
+        .img5 { background-image: url('https://picsum.photos/300/200?random=5'); }
+        .img6 { background-image: url('https://picsum.photos/300/200?random=6'); }
+
+        .info {
+            margin-top: 40px;
+            background: #e2e8f0;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ منتجاتنا المميزة</h1>
+        
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-img img1"></div>
+                <div class="product-info">
+                    <div class="product-title">سماعات لاسلكية</div>
+                    <div class="product-price">$89.99</div>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img img2"></div>
+                <div class="product-info">
+                    <div class="product-title">ساعة ذكية</div>
+                    <div class="product-price">$199</div>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img img3"></div>
+                <div class="product-info">
+                    <div class="product-title">هاتف محمول</div>
+                    <div class="product-price">$499</div>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img img4"></div>
+                <div class="product-info">
+                    <div class="product-title">لابتوب احترافي</div>
+                    <div class="product-price">$999</div>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img img5"></div>
+                <div class="product-info">
+                    <div class="product-title">كاميرا رقمية</div>
+                    <div class="product-price">$599</div>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img img6"></div>
+                <div class="product-info">
+                    <div class="product-title">طائرة درون</div>
+                    <div class="product-price">$299</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info">
+            <p>✨ تأثير ظهور متأخر لكل بطاقة باستخدام <code>animation-delay</code></p>
+            <p>📌 <code>fadeInUp</code>: تلاشي + انزلاق للأعلى</p>
+            <p>⏱️ المدة: 0.6s | <code>forwards</code> يحافظ على الحالة النهائية</p>
+        </div>
+    </div>
+</body>
+</html>

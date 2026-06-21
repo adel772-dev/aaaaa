@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مثال 8: قائمة طعام - تأثيرات متعددة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 40px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 5px rgba(255,215,0,0.5); }
+            to { text-shadow: 0 0 20px rgba(255,215,0,0.8); }
+        }
+
+        .menu-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .menu-item {
+            width: 280px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            border-color: #ffd700;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .item-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item:hover .item-image {
+            transform: scale(1.05);
+            transition: transform 0.5s ease;
+        }
+
+        .item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .order-btn {
+            background: #ffd700;
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .menu-item:hover .order-btn {
+            transform: scale(1);
+        }
+
+        .order-btn:hover {
+            background: #ffed4e;
+            transform: scale(1.05);
+        }
+
+        .item-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .item-title {
+            color: #ffd700;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover .item-title {
+            letter-spacing: 1px;
+        }
+
+        .item-price {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover .item-price {
+            transform: scale(1.05);
+            color: #ffd700;
+        }
+
+        /* تأثيرات إضافية */
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4757;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 2;
+            animation: badgePulse 1s ease infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); background: #ff6b6b; }
+        }
+
+        /* صور متنوعة */
+        .img1 { background-image: url('https://picsum.photos/300/200?random=30'); }
+        .img2 { background-image: url('https://picsum.photos/300/200?random=31'); }
+        .img3 { background-image: url('https://picsum.photos/300/200?random=32'); }
+        .img4 { background-image: url('https://picsum.photos/300/200?random=33'); }
+        .img5 { background-image: url('https://picsum.photos/300/200?random=34'); }
+        .img6 { background-image: url('https://picsum.photos/300/200?random=35'); }
+
+        .info {
+            margin-top: 50px;
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍽️ قائمة الطعام الشهية</h1>
+        
+        <div class="menu-grid">
+            <div class="menu-item">
+                <div class="item-image img1">
+                    <div class="badge">🔥 الأكثر طلباً</div>
+                    <div class="item-overlay">
+                        <button class="order-btn">اطلب الآن</button>
+                    </div>
+                </div>
+                <div class="item-content">
+                    <div class="item-title">شاورما دجاج</div>
+                    <div class="item-price">$8.99</div>
+                </div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-image img2">
+                    <div class="badge">⭐ جديد</div>
+                    <div class="item-overlay">
+                        <button class="order-btn">اطلب الآن</button>
+                    </div>
+                </div>
+                <div class="item-content">
+                    <div class="item-title">بيتزا إيطالية</div>
+                    <div class="item-price">$12.99</div>
+                </div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-image img3">
+                    <div class="badge">🌱 نباتي</div>
+                    <div class="item-overlay">
+                        <button class="order-btn">اطلب الآن</button>
+                    </div>
+                </div>
+                <div class="item-content">
+                    <div class="item-title">برجر نباتي</div>
+                    <div class="item-price">$10.99</div>
+                </div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-image img4">
+                    <div class="badge">🍣 مميز</div>
+                    <div class="item-overlay">
+                        <button class="order-btn">اطلب الآن</button>
+                    </div>
+                </div>
+                <div class="item-content">
+                    <div class="item-title">سوشي متنوع</div>
+                    <div class="item-price">$18.99</div>
+                </div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-image img5">
+                    <div class="badge">🥩 لحم</div>
+                    <div class="item-overlay">
+                        <button class="order-btn">اطلب الآن</button>
+                    </div>
+                </div>
+                <div class="item-content">
+                    <div class="item-title">ستيك لحم</div>
+                    <div class="item-price">$24.99</div>
+                </div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-image img6">
+                    <div class="badge">🍰 حلويات</div>
+                    <div class="item-overlay">
+                        <button class="order-btn">اطلب الآن</button>
+                    </div>
+                </div>
+                <div class="item-content">
+                    <div class="item-title">تشيز كيك</div>
+                    <div class="item-price">$6.99</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info">
+            <p>🎯 تأثيرات Animation و Transition مستخدمة:</p>
+            <p>🔹 <code>titleGlow</code>: توهج متناوب للعنوان</p>
+            <p>🔹 <code>badgePulse</code>: نبض مستمر للشارة</p>
+            <p>🔹 <code>transform: scale()</code> و <code>opacity</code> للزر عند hover</p>
+            <p>🔹 <code>letter-spacing</code> و <code>color</code> متغيرين عند hover</p>
+        </div>
+    </div>
+</body>
+</html>
+/*  التأثيرات:
+السطر 29-33: @keyframes titleGlow – توهج مستمر للعنوان
+السطر 94-98: @keyframes badgePulse – نبض للشارة
+السطر 64: transform: scale(1.05) – تكبير الصورة عند hover
+السطر 73-78: opacity للطبقة العلوية – تظهر عند hover
+
+ */

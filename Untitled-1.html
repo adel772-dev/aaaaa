@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8"> <!-- دعم اللغة العربية والأحرف الخاصة -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- توافق مع الجوالات -->
+    <title>مثال 1: شعار متحرك - نبض واهتزاز</title>
+    <style>
+        * {
+            margin: 0; /* إزالة الهامش الخارجي لجميع العناصر */
+            padding: 0; /* إزالة الحشوة الداخلية لجميع العناصر */
+            box-sizing: border-box; /* جعل العرض يشمل الحشوة والحدود */
+        }
+
+        /* تنسيق جسم الصفحة */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* خط حديث ونظيف */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* خلفية متدرجة جميلة */
+            min-height: 100vh; /* ارتفاع الصفحة بالكامل */
+            display: flex; /* استخدام Flexbox للتوسيط */
+            justify-content: center; /* توسيط أفقي */
+            align-items: center; /* توسيط عمودي */
+            flex-direction: column; /* ترتيب العناصر عمودياً */
+            gap: 2rem; /* مسافة بين العناصر */
+        }
+
+        /* حاوية الشعار */
+        .logo-container {
+            text-align: center; /* توسيط النص */
+            background: rgba(255, 255, 255, 0.95); /* خلفية بيضاء شبه شفافة */
+            padding: 3rem; /* حشوة داخلية كبيرة */
+            border-radius: 30px; /* زوايا دائرية */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2); /* ظل عميق */
+        }
+
+        /* الشعار الأساسي */
+        .logo {
+            font-size: 4rem; /* حجم الخط كبير جداً */
+            font-weight: bold; /* خط عريض */
+            background: linear-gradient(135deg, #e608c8, #a7bc20); /* تدرج لوني */
+            -webkit-background-clip: text; /* قص الخلفية على النص لمتصفحات WebKit */
+            background-clip: text; /* قص الخلفية على النص */
+            color: transparent; /* جعل النص شفافاً ليظهر التدرج */
+            display: inline-block; /* لجعل العنصر يأخذ حجم محتواه */
+            /* ⭐ تعريف Animation */
+            animation-name: ss; /* اسم الحركة المخصصة */
+            animation-duration: 2s; /* مدة الحركة الكاملة 2 ثانية */
+            animation-timing-function: ease-in-out; /* منحنى سرعة: بطيء ثم سريع ثم بطيء */
+            animation-iteration-count: infinite; /* تكرار الحركة إلى ما لا نهاية */
+            animation-direction: alternate; /* عكس الاتجاه في كل مرة */
+        }
+
+        /* تعريف حركة النبض والاهتزاز باستخدام keyframes */
+        @keyframes ss {
+            0% { /* بداية الحركة */
+                transform: scale(1) translate(0, 0); /* الحجم الطبيعي، بدون إزاحة */
+                text-shadow: 0 0 0 rgba(102,126,234,0); /* ظل شفاف */
+            }
+            25% { /* ربع المدة */
+                transform: scale(1.05) translate(-2px, -2px); /* تكبير 5% وإزاحة طفيفة */
+                text-shadow: 0 0 10px rgba(102,126,234,0.5); /* ظل خفيف */
+            }
+            50% { /* نصف المدة */
+                transform: scale(1.1) translate(2px, 2px); /* تكبير 10% وإزاحة معاكسة */
+                text-shadow: 0 0 20px rgba(102,126,234,0.8); /* ظل أقوى */
+            }
+            75% { /* ثلاثة أرباع المدة */
+                transform: scale(1.05) translate(-1px, 1px); /* عودة جزئية للتكبير */
+                text-shadow: 0 0 10px rgba(102,126,234,0.5); /* ظل متوسط */
+            }
+            100% { /* نهاية الحركة */
+                transform: scale(1) translate(0, 0); /* العودة إلى الحجم الطبيعي */
+                text-shadow: 0 0 0 rgba(102,126,234,0); /* اختفاء الظل */
+            }
+        }
+
+        /* شعار ثانوي بتأثير مختلف */
+        .sub-logo {
+            margin-top: 2rem; /* هامش علوي */
+            font-size: 1.2rem; /* حجم الخط متوسط */
+            color: #666; /* لون رمادي */
+            /* ⭐ Animation ثانية */
+            animation: fadeInOut 3s ease-in-out infinite; /* صيغة مختصرة: اسم، مدة، منحنى، تكرار */
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; } /* بداية ونهاية: شفافية منخفضة */
+            50% { opacity: 1; } /* منتصف المدة: شفافية كاملة */
+        }
+
+        /* نص توضيحي */
+        .info {
+            background: rgba(0,0,0,0.7); /* خلفية سوداء شفافة */
+            color: white; /* لون النص أبيض */
+            padding: 1rem; /* حشوة داخلية */
+            border-radius: 15px; /* زوايا دائرية */
+            font-size: 0.8rem; /* حجم خط صغير */
+            text-align: center; /* توسيط النص */
+        }
+
+        code {
+            background: #333; /* خلفية داكنة */
+            color: #ffd700; /* لون ذهبي */
+            padding: 0.2rem 0.5rem; /* حشوة داخلية صغيرة */
+            border-radius: 5px; /* زوايا دائرية */
+            font-family: monospace; /* خط أحادي المسافة */
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <div class="logo"> Code With BIM Master </div>
+        <div class="sub-logo">تعلم البرمجة باحترافية</div>
+    </div>
+    <div class="info">
+        <p>🎯 تأثيرات Animation مستخدمة:</p>
+        <p>🔹 <code>pulseAndShake</code>: نبض + اهتزاز + ظل متغير</p>
+        <p>🔹 <code>fadeInOut</code>: تلاشي وظهور مستمر</p>
+        <p>⏱️ المدة: 2s | التكرار: <code>infinite</code> | الاتجاه: <code>alternate</code></p>
+    </div>
+</body>
+</html>

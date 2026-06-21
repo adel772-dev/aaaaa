@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مثال 7: شريط تقدم متحرك</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        /* كل عنصر تقدم */
+        .progress-item {
+            margin-bottom: 30px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* حاوية شريط التقدم */
+        .progress-bar-container {
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            height: 30px;
+            overflow: hidden;
+        }
+
+        /* شريط التقدم المتحرك */
+        .progress-fill {
+            height: 100%;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+            /* ⭐ Animation */
+            animation: fillProgress 1.5s ease-out forwards;
+            width: 0%; /* يبدأ من صفر */
+        }
+
+        @keyframes fillProgress {
+            from {
+                width: 0%;
+            }
+            to {
+                width: var(--target-width); /* قيمة متغيرة لكل شريط */
+            }
+        }
+
+        /* ألوان مختلفة لكل شريط */
+        .fill-html { background: linear-gradient(90deg, #e74c3c, #e67e22); --target-width: 90%; }
+        .fill-css { background: linear-gradient(90deg, #3498db, #2980b9); --target-width: 85%; }
+        .fill-js { background: linear-gradient(90deg, #f1c40f, #f39c12); --target-width: 75%; }
+        .fill-react { background: linear-gradient(90deg, #61dafb, #3498db); --target-width: 70%; }
+        .fill-python { background: linear-gradient(90deg, #2ecc71, #27ae60); --target-width: 80%; }
+
+        /* نسبة التقدم داخل الشريط */
+        .progress-value {
+            background: rgba(0,0,0,0.5);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+        }
+
+        /* تأثير عد تنازلي للأرقام */
+        .percentage {
+            animation: countUp 1.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* مؤشر تحميل دائري */
+        .circular-progress {
+            width: 120px;
+            height: 120px;
+            margin: 30px auto 0;
+            position: relative;
+        }
+
+        .circular-progress svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .circular-progress circle {
+            fill: none;
+            stroke: rgba(255,255,255,0.2);
+            stroke-width: 8;
+        }
+
+        .circular-progress .progress-circle {
+            stroke: #ffd700;
+            stroke-dasharray: 314; /* محيط الدائرة = 2 * pi * 50 ≈ 314 */
+            stroke-dashoffset: 314;
+            animation: circleProgress 2s ease-out forwards;
+        }
+
+        @keyframes circleProgress {
+            to {
+                stroke-dashoffset: 62.8; /* 314 * 0.8 = 251.2 للإزاحة، 314 - 251.2 = 62.8 */
+            }
+        }
+
+        .percentage-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffd700;
+            font-size: 1.5rem;
+            font-weight: bold;
+            animation: fadeScale 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeScale {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .info {
+            margin-top: 30px;
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 مهاراتي التقنية</h1>
+        
+        <div class="progress-item">
+            <div class="progress-label">
+                <span>HTML5 & CSS3</span>
+                <span class="percentage">90%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-fill fill-html">
+                    <span class="progress-value">90%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-label">
+                <span>JavaScript</span>
+                <span class="percentage">85%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-fill fill-css">
+                    <span class="progress-value">85%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-label">
+                <span>React.js</span>
+                <span class="percentage">75%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-fill fill-js">
+                    <span class="progress-value">75%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-label">
+                <span>Python</span>
+                <span class="percentage">80%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-fill fill-python">
+                    <span class="progress-value">80%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="circular-progress">
+            <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="50"></circle>
+                <circle class="progress-circle" cx="50" cy="50" r="50"></circle>
+            </svg>
+            <div class="percentage-text">80%</div>
+        </div>
+        
+        <div class="info">
+            <p>🎯 تقنيات Animation في شرائط التقدم:</p>
+            <p>🔹 <code>fillProgress</code>: زيادة العرض من 0% إلى النسبة المستهدفة</p>
+            <p>🔹 <code>countUp</code>: ظهور الأرقام بتأثير تكبير</p>
+            <p>🔹 <code>circleProgress</code>: تغيير <code>stroke-dashoffset</code> للتقدم الدائري</p>
+            <p>📌 استخدام <code>var(--target-width)</code> لتحديد النسبة لكل شريط</p>
+        </div>
+    </div>
+</body>
+</html>
+/* رائط التقدم:
+السطر 62: animation: fillProgress 1.5s ease-out forwards – حركة تعبئة
+السطر 63: width: 0% – البداية من صفر
+السطر 65-72: @keyframes fillProgress – من 0% إلى القيمة المتغيرة
+السطر 75: --target-width: 90% – متغير CSS مخصص لكل شريط
+السطر 101-106: @keyframes circleProgress – حركة دائرية باستخدام stroke-dashoffset
+
+ */

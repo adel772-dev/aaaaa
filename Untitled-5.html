@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    /* خلفية المتحركة:
+    السطر 17: background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #f5576c) – 4 ألوان
+    السطر 18: background-size: 400% 400% – توسيع الخلفية 4 أضعاف
+    السطر 20: animation: gradientShift 10s ease infinite – حركة لا نهائية
+    السطر 23-32: `@keyframes  */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مثال 5: خلفية متحركة - ألوان متغيرة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            /* ⭐ خلفية متدرجة متحركة */
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%; /* تكبير الخلفية لإنشاء مساحة للحركة */
+            /* ⭐ Animation لتغيير موضع الخلفية */
+            animation: gradientShift 10s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* حاوية المحتوى */
+        
+
+        h1 {
+            font-size: 3rem;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 5px rgba(255,255,255,0.5);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(255,255,255,0.9);
+            }
+        }
+
+        
+
+       
+
+        /* أوقات مختلفة للطفو */
+        .glass-card:nth-child(1) { animation-delay: 0s; }
+        .glass-card:nth-child(2) { animation-delay: 0.5s; }
+        .glass-card:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        
+
+        .info {
+            background: rgba(0,0,0,0.6);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 40px;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>🌈 خلفية متحركة بتدرجات ساحرة</h1>
+        <p>شاهد كيف تتغير الألوان بتدرج سلس ومستمر</p>
+        
+        
+    </div>
+</body>
+</html>

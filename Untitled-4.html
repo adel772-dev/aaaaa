@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+    /* رات متعددة:
+    السطر 69-70: animation: slideInRight 0.4s ease forwards, fadeOut 0.5s ease 2.5s forwards
+    
+    حركتان متتاليتان: ظهور ثم اختفاء بعد 2.5 ثانية
+    
+    forwards تحافظ على الحالة النهائية لكل حركة
+    
+     */
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مثال 4: إشعار منبثق متحرك</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* زر عرض الإشعار */
+        .show-btn {
+            background: white;
+            color: #11998e;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .show-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* حاوية الإشعارات */
+        .notifications-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-end;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* الإشعار الفردي */
+        .notification {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 280px;
+            pointer-events: auto;
+            /* ⭐ Animation ظهور واختفاء */
+            animation: slideInRight 0.4s ease forwards, fadeOut 0.5s ease 2.5s forwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+                visibility: hidden;
+            }
+        }
+
+        /* أنواع مختلفة من الإشعارات */
+        .notification.success {
+            border-right: 5px solid #38ef7d;
+        }
+        .notification.error {
+            border-right: 5px solid #ff4757;
+        }
+        .notification.warning {
+            border-right: 5px solid #ffa502;
+        }
+
+        .notification-icon {
+            font-size: 1.5rem;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .notification-message {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #ff4757;
+        }
+
+        .info {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <button class="show-btn" id="showNotification">🔔 عرض إشعار نجاح</button>
+    
+    <div class="notifications-container" id="notificationsContainer"></div>
+    
+    <div class="info">
+        <p>🔔 الإشعارات تظهر بـ <code>slideInRight</code> وتختفي بـ <code>fadeOut</code></p>
+        <p>⏱️ مدة الظهور: 0.4s | مدة الاختفاء: 0.5s بعد تأخير 2.5s</p>
+        <p>✨ يمكن استخدام <code>animation-delay</code> و <code>animation-fill-mode: forwards</code></p>
+    </div>
+
+    <script>
+        const container = document.getElementById('notificationsContainer');
+        const showBtn = document.getElementById('showNotification');
+        
+        function addNotification(type, title, message) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            let icon = '';
+            if (type === 'success') icon = '✅';
+            else if (type === 'error') icon = '❌';
+            else icon = '⚠️';
+            
+            notification.innerHTML = `
+                <div class="notification-icon">${icon}</div>
+                <div class="notification-content">
+                    <div class="notification-title">${title}</div>
+                    <div class="notification-message">${message}</div>
+                </div>
+                <button class="close-btn">✕</button>
+            `;
+            
+            container.appendChild(notification);
+            
+            const closeBtn = notification.querySelector('.close-btn');
+            closeBtn.addEventListener('click', () => {
+                notification.style.animation = 'fadeOut 0.3s ease forwards';
+                setTimeout(() => notification.remove(), 300);
+            });
+            
+            setTimeout(() => {
+                if (notification.parentElement) notification.remove();
+            }, 3500);
+        }
+        
+        showBtn.addEventListener('click', () => {
+            addNotification('success', 'تمت العملية بنجاح!', 'تم حفظ البيانات بنجاح في قاعدة البيانات');
+        });
+    </script>
+</body>
+</html>

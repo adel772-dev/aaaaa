@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    /*  Animation:
+    السطر 53: animation: spin 1s linear infinite – دوران مستمر بسرعة ثابتة
+    السطر 55-58: @keyframes spin – من 0deg إلى 360deg
+    السطر 71-73: animation-delay – تأخير بدء الحركة لكل نقطة
+    السطر 75-78: @keyframes bounce – حركة قفز مع تغير الشفافية
+    
+     */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مثال 2: مؤشر تحميل متحرك</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        /* حاوية مؤشر التحميل */
+        .spinner-container {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        /* مؤشر التحميل الأساسي */
+        .spinner {
+            width: 80px; /* عرض ثابت */
+            height: 80px; /* ارتفاع ثابت */
+            border: 6px solid rgba(255,255,255,0.3); /* حدود شفافة */
+            border-top: 6px solid #ffd700; /* الحد العلوي بلون ذهبي */
+            border-radius: 50%; /* شكل دائري */
+            margin: 0 auto 20px; /* توسيط أفقي مع هامش سفلي */
+            /* ⭐ Animation دوران مستمر */
+            animation: spin 1s linear infinite; /* دوران خطي لا نهائي */
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); } /* بداية: زاوية 0 */
+            to { transform: rotate(360deg); } /* نهاية: دوران كامل */
+        }
+
+        /* مؤشر تحميل ثانوي - نقاط متحركة */
+        .dots-loader {
+            display: flex; /* عرض النقاط أفقياً */
+            gap: 15px; /* مسافة بين النقاط */
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .dot {
+            width: 20px; /* عرض النقطة */
+            height: 20px; /* ارتفاع النقطة */
+            background: #ffd700; /* لون ذهبي */
+            border-radius: 50%; /* شكل دائري */
+            /* ⭐ Animation لكل نقطة مع تأخير مختلف */
+            animation: bounce 0.6s ease-in-out infinite alternate;
+        }
+
+        /* تأخير مختلف لكل نقطة لإنشاء تأثير متتالٍ */
+        .dot:nth-child(1) { animation-delay: 0s; }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            from { transform: translateY(0); opacity: 0.3; } /* بداية: في مكانه، شفاف */
+            to { transform: translateY(-20px); opacity: 1; } /* نهاية: للأعلى، مرئي */
+        }
+
+        /* مؤشر تحميل ثالث - تأثير كتابة */
+        .typing-loader {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .typing-dot {
+            width: 12px;
+            height: 12px;
+            background: rgb(231, 160, 193);
+            border-radius: 50%;
+            animation: typing 1.4s ease-in-out infinite;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: scale(1); opacity: 0.3; }
+            30% { transform: scale(1.5); opacity: 1; }
+        }
+
+        .info {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px;
+            max-width: 500px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="spinner-container">
+        <h2 style="color: white; margin-bottom: 20px;">🔄 مؤشرات تحميل متحركة</h2>
+        
+        <div class="spinner"></div>
+        <p style="color: white; margin: 10px 0;">Spinner - دوران مستمر</p>
+        
+        <div class="dots-loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <p style="color: white; margin: 10px 0;">Bouncing Dots - نقاط متتالية</p>
+        
+        <div class="typing-loader">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        </div>
+        <p style="color: white; margin: 10px 0;">Typing Effect - تأثير كتابة</p>
+    </div>
+    
+    <div class="info">
+        <p>📌 ثلاثة أنواع من مؤشرات التحميل:</p>
+        <p>1️⃣ <code>spin</code>: دوران 360 درجة باستمرار</p>
+        <p>2️⃣ <code>bounce</code>: قفز مع تأخير لكل نقطة</p>
+        <p>3️⃣ <code>typing</code>: تكبير وتصغير متتالٍ</p>
+    </div>
+</body>
+</html>
